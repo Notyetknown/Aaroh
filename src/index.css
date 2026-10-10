@@ -1,0 +1,14 @@
+@tailwind base;@tailwind components;@tailwind utilities;
+:root{--forest:#064E3B;--emerald:#047857;--midnight:#022C22;--amber:#F59E0B;--ivory:#F8FAFC;--slate:#64748B;--radius:24px}
+html{scroll-behavior:smooth}body{font-family:Inter,system-ui,sans-serif;background:var(--ivory);color:#0f172a;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+@layer components{
+.glass{@apply bg-white/10 backdrop-blur-xl border border-white/20 text-white;border-radius:var(--radius);box-shadow:0 12px 40px rgba(2,44,34,.16),inset 0 1px 0 rgba(255,255,255,.12)}
+.glass-dark{@apply bg-midnight/60 backdrop-blur-xl border border-white/15 text-white;border-radius:var(--radius);box-shadow:0 12px 40px rgba(2,44,34,.3),inset 0 1px 0 rgba(255,255,255,.1)}
+.glass-light{@apply bg-white/70 backdrop-blur-xl border border-emerald/15 text-slate-800;border-radius:var(--radius);box-shadow:0 12px 40px rgba(2,44,34,.08),inset 0 1px 0 rgba(255,255,255,.8)}
+.btn{@apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold transition min-h-[44px] active:scale-95}
+.btn-amber{@apply bg-amber text-midnight hover:brightness-110 shadow-lg}
+.btn-glass{@apply bg-white/15 backdrop-blur-xl border border-white/30 text-white hover:bg-white/25}
+.field{@apply w-full rounded-xl bg-white/90 text-slate-900 px-4 py-3 border border-white/40 placeholder:text-slate-400}
+.wrap{@apply mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8}}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+@media (max-width:640px){.glass,.glass-dark,.glass-light{backdrop-filter:blur(12px)}}

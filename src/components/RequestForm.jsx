@@ -3,7 +3,7 @@ import {RefreshCw,CheckCircle2,AlertCircle} from 'lucide-react'
 import {categories} from '../data/pillars';import {validate} from '../utils/validation';import {addRequest} from '../services/requestService';import {sendRequestEmail} from '../services/emailService'
 const newQ=()=>{const a=2+Math.floor(Math.random()*8),b=2+Math.floor(Math.random()*8);return{q:`What is ${a} + ${b}?`,expected:a+b}}
 const init={name:'',email:'',category:categories[0],message:''}
-export default function RequestForm(){const [v,setV]=useState(init),[cap,setCap]=useState(newQ),[ans,setAns]=useState(''),[err,setErr]=useState({}),[busy,setBusy]=useState(false),[st,setSt]=useState(null)
+export default function RequestForm({initialCategory}){const [v,setV]=useState(()=>({...init,category:categories.includes(initialCategory)?initialCategory:init.category})),[cap,setCap]=useState(newQ),[ans,setAns]=useState(''),[err,setErr]=useState({}),[busy,setBusy]=useState(false),[st,setSt]=useState(null)
  const set=k=>e=>setV(x=>({...x,[k]:e.target.value}))
  const Err=({k})=>err[k]?<p id={`${k}-e`} className="mt-1 flex gap-1 text-sm text-amber-200"><AlertCircle size={16} className="mt-0.5 shrink-0"/>{err[k]}</p>:null
  const lab="block text-sm font-medium mb-1 text-emerald-50"

@@ -1,17 +1,18 @@
 import {useCallback,useEffect,useState} from 'react'
 import {Link} from 'react-router-dom';import {Inbox,RefreshCw} from 'lucide-react'
 import RequestCard from '../components/RequestCard';import {categories} from '../data/pillars';import {getRequestsByCategory,subscribe} from '../services/requestService';import {usePageTitle} from '../hooks/useReducedMotion'
+import Reveal from '../components/Reveal'
 const filters=['All Requests',...categories]
 export default function LiveBoard(){usePageTitle('Live Board | आरोह','Requests saved in this browser.')
  const [f,setF]=useState(filters[0]),[items,setItems]=useState(null),[err,setErr]=useState(false)
  const load=useCallback(async()=>{try{setErr(false);setItems(await getRequestsByCategory(f))}catch{setErr(true)}},[f])
  useEffect(()=>{setItems(null);load();return subscribe(load)},[load])
  return(<section className="min-h-screen bg-gradient-to-b from-forest via-emerald/30 to-ivory pt-32 pb-20"><div className="wrap max-w-4xl">
- <h1 className="text-[clamp(2rem,5vw,3.5rem)] font-bold text-white text-center">Live Community Board</h1>
- <p className="mt-3 text-center text-emerald-100">Local demo mode — requests are visible only in this browser.</p>
- <div className="glass-dark mt-8 flex flex-wrap items-center gap-2 p-3" role="group" aria-label="Filter by category">
+ <Reveal><h1 className="text-[clamp(2rem,5vw,3.5rem)] font-bold text-white text-center">Live Community Board</h1>
+ <p className="mt-3 text-center text-emerald-100">Local demo mode — requests are visible only in this browser.</p></Reveal>
+ <Reveal delay={0.1}><div className="glass-dark mt-8 flex flex-wrap items-center gap-2 p-3" role="group" aria-label="Filter by category">
   {filters.map(c=><button key={c} aria-pressed={f===c} onClick={()=>setF(c)} className={`rounded-full px-4 py-2 text-sm min-h-[44px] transition ${f===c?'bg-amber text-midnight font-semibold':'bg-white/10 hover:bg-white/20'}`}>{c}</button>)}
-  <button onClick={load} aria-label="Refresh requests" className="ml-auto p-2.5"><RefreshCw size={18}/></button></div>
+  <button onClick={load} aria-label="Refresh requests" className="ml-auto p-2.5 transition-transform hover:rotate-45"><RefreshCw size={18}/></button></div></Reveal>
  <div className="mt-8" aria-live="polite">
  {err?<p className="glass-light p-6 text-red-800">Requests could not be read from this browser's storage. Refresh the page or clear the saved Aaroh data.</p>
  :items===null?<p className="glass-light p-6 animate-pulse">Loading requests…</p>
